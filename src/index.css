@@ -26,6 +26,16 @@ body {
     line-height: 1.5;
 }
 
+#root {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 h1 {
     margin-bottom: 1.5rem;
     color: var(--lavender);
@@ -69,7 +79,7 @@ input[type="text"]:focus {
     outline-offset: 2px;
 }
 
-input[type="submit"] {
+input[type="submit"], button[type="submit"] {
     padding: 0.75rem 1rem;
     border: none;
     border-radius: 6px;
@@ -77,57 +87,105 @@ input[type="submit"] {
     color: var(--base);
     cursor: pointer;
     font-weight: bold;
+    font-size: 1rem;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, button[type="submit"]:hover {
     background-color: var(--peach);
 }
 
-#show-results {
-    flex: 1;
+.show-list-container > h2 {
+    margin-top: 0;
+    text-align: center;
 }
-
-#show-results > ul {
+ 
+.show-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     align-items: stretch;
+    justify-content: center;
     padding: 0;
     margin: 0;
     list-style: none;
-    justify-content: center;
 }
 
-#show-results > ul > .show-card {
+.show-list > li {
+    display: flex;
     flex: 1 1 280px;
     max-width: 400px;
+}
+ 
+
+.show-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 1.25rem;
     border: 1px solid var(--border);
     border-radius: 8px;
     background-color: var(--surface);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
-
+ 
+.show-card h2 {
+    margin-top: 0;
+}
+ 
+.show-card img,
+.show-card .no-image {
+    display: block;
+    width: 210px;
+    max-width: 100%;
+    margin: 0 auto 1rem;
+    border-radius: 6px;
+}
+ 
+.show-card img {
+    height: auto;
+}
+ 
+.show-card .no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 210 / 295;
+    padding: 1rem;
+    background-color: var(--surface-light);
+    border: 1px dashed var(--border);
+    color: var(--subtext);
+    text-align: center;
+}
+ 
 .show-card p {
+    margin: 0.4rem 0;
     color: var(--subtext);
 }
-
+ 
 .show-card .cast-list {
+    margin: 0 0 0.5rem;
     padding-left: 1.25rem;
     color: var(--subtext);
 }
-
+ 
 .show-card a {
-    display: inline-block;
-    margin-top: 0.75rem;
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 0.75rem;
     color: var(--lavender);
     font-weight: bold;
 }
-
+ 
 .show-card a:hover {
     color: var(--peach);
 }
-
+ 
+.status-message {
+    padding: 2rem 1rem;
+    color: var(--subtext);
+    text-align: center;
+}
+ 
 footer {
     margin-top: 2rem;
     padding: 1rem;
@@ -136,25 +194,25 @@ footer {
     font-size: 0.9rem;
     text-align: center;
 }
-
+ 
 footer a {
     color: var(--lavender);
 }
-
+ 
 footer a:hover {
     color: var(--peach);
 }
-
+ 
 @media (max-width: 600px) {
     body {
         padding: 1rem;
     }
-
+ 
     form {
         flex-direction: column;
     }
-
-    input[type="submit"] {
+ 
+    input[type="submit"], button[type="submit"] {
         width: 100%;
     }
 }

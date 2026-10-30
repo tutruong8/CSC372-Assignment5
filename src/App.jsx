@@ -1,11 +1,13 @@
 import { useState } from 'react'
-import './App.css'
+import ShowList from './ShowList'
+import {sample1, sample2, sample3} from './sampleData'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+      <ShowList shows={[sample1, sample2, sample3]} searchTerm="girls" />
       <Footer />
     </>
   )
