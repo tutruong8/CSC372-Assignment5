@@ -1,13 +1,52 @@
+import { useState, useEffect } from 'react';
 import * as utils from './utils';
 import CastList from './CastList';
 
 function ShowCard({ show }) {
+    const [cast, setCast] = useState([]);
+    const [castStatus, setCastStatus] = useState("loading");
+     useEffect(() => {
+        let ignore = false;
+        async function fetchCast() {
+            setCastStatus("loading");
+            try {
+                const data = await utils.fetchJson(`https://api.tvmaze.com/shows/${show.id}/cast`);
+                if (!ignore) {
+                    setCast(data);
+                    setCastStatus("success");
+                }
+            } catch (error) {
+                if (!ignore) {
+                    if (error.status === 429) {
+                        setCastStatus("rate-limited");
+                    } else {
+                        setCastStatus("error");
+                    }
+                }
+            }
+        }
+        fetchCast();
+        return () => {
+            ignore = true;
+        };
+    }, [show.id]);
+    
     const showSummary = utils.stripHtmlTags(show.summary);
     const premiereDate = utils.formatDate(show.premiered);
     const updatedDate = utils.formatDateTime(show.updated);
     const genreText = show.genres.length > 0 ? show.genres.join(", ") : "Not Available";
     const ratingText = show.rating?.average ?? "Not Available";
-    const sampleCast = [{"person":{"id":27410,"url":"https://www.tvmaze.com/people/27410/lena-dunham","name":"Lena Dunham","country":{"name":"United States","code":"US","timezone":"America/New_York"},"birthday":"1986-05-13","deathday":null,"gender":"Female","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/3/7597.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/3/7597.jpg"},"updated":1792705384,"_links":{"self":{"href":"https://api.tvmaze.com/people/27410"}}},"character":{"id":36886,"url":"https://www.tvmaze.com/characters/36886/girls-hannah-horvath","name":"Hannah Horvath","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/0/1954.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/0/1954.jpg"},"_links":{"self":{"href":"https://api.tvmaze.com/characters/36886"}}},"self":false,"voice":false},{"person":{"id":11102,"url":"https://www.tvmaze.com/people/11102/allison-williams","name":"Allison Williams","country":{"name":"United States","code":"US","timezone":"America/New_York"},"birthday":"1988-04-13","deathday":null,"gender":"Female","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/3/7628.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/3/7628.jpg"},"updated":1772239566,"_links":{"self":{"href":"https://api.tvmaze.com/people/11102"}}},"character":{"id":36887,"url":"https://www.tvmaze.com/characters/36887/girls-marnie-michaels","name":"Marnie Michaels","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/0/1955.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/0/1955.jpg"},"_links":{"self":{"href":"https://api.tvmaze.com/characters/36887"}}},"self":false,"voice":false},{"person":{"id":27411,"url":"https://www.tvmaze.com/people/27411/jemima-kirke","name":"Jemima Kirke","country":{"name":"United Kingdom","code":"GB","timezone":"Europe/London"},"birthday":"1985-04-26","deathday":null,"gender":"Female","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/3/7631.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/3/7631.jpg"},"updated":1791507431,"_links":{"self":{"href":"https://api.tvmaze.com/people/27411"}}},"character":{"id":36888,"url":"https://www.tvmaze.com/characters/36888/girls-jessa-johansson","name":"Jessa Johansson","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/0/1957.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/0/1957.jpg"},"_links":{"self":{"href":"https://api.tvmaze.com/characters/36888"}}},"self":false,"voice":false},{"person":{"id":16405,"url":"https://www.tvmaze.com/people/16405/zosia-mamet","name":"Zosia Mamet","country":{"name":"United States","code":"US","timezone":"America/New_York"},"birthday":"1988-02-02","deathday":null,"gender":"Female","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/3/7634.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/3/7634.jpg"},"updated":1787956984,"_links":{"self":{"href":"https://api.tvmaze.com/people/16405"}}},"character":{"id":36889,"url":"https://www.tvmaze.com/characters/36889/girls-shoshanna-shapiro","name":"Shoshanna Shapiro","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/0/1956.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/0/1956.jpg"},"_links":{"self":{"href":"https://api.tvmaze.com/characters/36889"}}},"self":false,"voice":false},{"person":{"id":24858,"url":"https://www.tvmaze.com/people/24858/adam-driver","name":"Adam Driver","country":{"name":"United States","code":"US","timezone":"America/New_York"},"birthday":"1983-11-19","deathday":null,"gender":"Male","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/257/643602.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/257/643602.jpg"},"updated":1761864216,"_links":{"self":{"href":"https://api.tvmaze.com/people/24858"}}},"character":{"id":36890,"url":"https://www.tvmaze.com/characters/36890/girls-adam-sackler","name":"Adam Sackler","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/0/1959.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/0/1959.jpg"},"_links":{"self":{"href":"https://api.tvmaze.com/characters/36890"}}},"self":false,"voice":false},{"person":{"id":24970,"url":"https://www.tvmaze.com/people/24970/alex-karpovsky","name":"Alex Karpovsky","country":{"name":"United States","code":"US","timezone":"America/New_York"},"birthday":"1975-09-23","deathday":null,"gender":"Male","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/3/7638.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/3/7638.jpg"},"updated":1792921323,"_links":{"self":{"href":"https://api.tvmaze.com/people/24970"}}},"character":{"id":36891,"url":"https://www.tvmaze.com/characters/36891/girls-ray-ploshansky","name":"Ray Ploshansky","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/0/1958.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/0/1958.jpg"},"_links":{"self":{"href":"https://api.tvmaze.com/characters/36891"}}},"self":false,"voice":false},{"person":{"id":27412,"url":"https://www.tvmaze.com/people/27412/andrew-rannells","name":"Andrew Rannells","country":{"name":"United States","code":"US","timezone":"America/New_York"},"birthday":"1978-08-23","deathday":null,"gender":"Male","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/485/1213351.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/485/1213351.jpg"},"updated":1792962718,"_links":{"self":{"href":"https://api.tvmaze.com/people/27412"}}},"character":{"id":36892,"url":"https://www.tvmaze.com/characters/36892/girls-elijah-krantz","name":"Elijah Krantz","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/15/38615.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/15/38615.jpg"},"_links":{"self":{"href":"https://api.tvmaze.com/characters/36892"}}},"self":false,"voice":false},{"person":{"id":4896,"url":"https://www.tvmaze.com/people/4896/ebon-moss-bachrach","name":"Ebon Moss-Bachrach","country":{"name":"United States","code":"US","timezone":"America/New_York"},"birthday":"1977-03-19","deathday":null,"gender":"Male","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/147/369955.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/147/369955.jpg"},"updated":1791470706,"_links":{"self":{"href":"https://api.tvmaze.com/people/4896"}}},"character":{"id":37030,"url":"https://www.tvmaze.com/characters/37030/girls-desi","name":"Desi","image":{"medium":"https://static.tvmaze.com/uploads/images/medium_portrait/15/38616.jpg","original":"https://static.tvmaze.com/uploads/images/original_untouched/15/38616.jpg"},"_links":{"self":{"href":"https://api.tvmaze.com/characters/37030"}}},"self":false,"voice":false}]
+    
+    let castContent;
+    if (castStatus === "loading") {
+        castContent = <p>Loading cast…</p>;
+    } else if (castStatus === "rate-limited") {
+        castContent = <p>Cast temporarily unavailable</p>;
+    } else if (castStatus === "error") {
+        castContent = <p>Cast not available</p>;
+    } else {
+        castContent = <CastList cast={cast} limit={5} />;
+    }
 
     return (
         <article className="show-card">
@@ -22,8 +61,8 @@ function ShowCard({ show }) {
             <p>Updated Date: {updatedDate}</p>
             <p>Genres: {genreText}</p>
             <p>Rating: {ratingText}</p>
-            <p>Cast:</p>
-            <CastList cast={sampleCast} limit={5}/>
+            <h3>Cast:</h3>
+            {castContent}
             {show.url ? (
                 <p>More Info: <a href={show.url} target="_blank" rel="noopener noreferrer">View {show.name} on TVmaze</a></p>
             ) : (

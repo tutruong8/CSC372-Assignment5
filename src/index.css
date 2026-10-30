@@ -94,6 +94,13 @@ input[type="submit"]:hover, button[type="submit"]:hover {
     background-color: var(--peach);
 }
 
+.form-error {
+    margin: -1rem 0 1.5rem;
+    color: var(--peach);
+    text-align: center;
+}
+
+
 .show-list-container > h2 {
     margin-top: 0;
     text-align: center;

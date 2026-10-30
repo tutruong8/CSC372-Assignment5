@@ -2,7 +2,7 @@ import ShowCard from './ShowCard'
 
 function ShowList({ shows, searchTerm }) {
     if (!shows || shows.length === 0) {
-        return <p>No shows found for {searchTerm}</p>;
+        return <p className="status-message">No shows found for {searchTerm}</p>;
     }
     return  (
         <section className="show-list-container">
