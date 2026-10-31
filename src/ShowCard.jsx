@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import * as utils from './utils';
 import CastList from './CastList';
 
 function ShowCard({ show }) {
     const [cast, setCast] = useState([]);
     const [castStatus, setCastStatus] = useState("loading");
+
      useEffect(() => {
         let ignore = false;
         async function fetchCast() {
@@ -50,7 +52,9 @@ function ShowCard({ show }) {
 
     return (
         <article className="show-card">
-            <h2>{show.name}</h2>
+            <h2>
+                <Link to={`/shows/${show.id}`}>{show.name}</Link>
+            </h2>
             {show.image ? (
                 <img src={show.image.medium} alt={`${show.name} Poster`} />
             ) : (
@@ -64,9 +68,9 @@ function ShowCard({ show }) {
             <h3>Cast:</h3>
             {castContent}
             {show.url ? (
-                <p>More Info: <a href={show.url} target="_blank" rel="noopener noreferrer">View {show.name} on TVmaze</a></p>
+                <p className="more-info">More Info: <a href={show.url} target="_blank" rel="noopener noreferrer">View {show.name} on TVmaze</a></p>
             ) : (
-                <p>TVmaze page not available</p>
+                <p className="more-info">TVmaze page not available</p>
             )}
         </article>
     );

@@ -79,7 +79,8 @@ input[type="text"]:focus {
     outline-offset: 2px;
 }
 
-input[type="submit"], button[type="submit"] {
+input[type="submit"],
+button[type="submit"] {
     padding: 0.75rem 1rem;
     border: none;
     border-radius: 6px;
@@ -90,22 +91,23 @@ input[type="submit"], button[type="submit"] {
     font-size: 1rem;
 }
 
-input[type="submit"]:hover, button[type="submit"]:hover {
+input[type="submit"]:hover,
+button[type="submit"]:hover {
     background-color: var(--peach);
-}
+}Persona
 
+/* Sits just under the search box, pulled up into the form's bottom margin */
 .form-error {
     margin: -1rem 0 1.5rem;
     color: var(--peach);
     text-align: center;
 }
 
-
 .show-list-container > h2 {
     margin-top: 0;
     text-align: center;
 }
- 
+
 .show-list {
     display: flex;
     flex-wrap: wrap;
@@ -122,7 +124,7 @@ input[type="submit"]:hover, button[type="submit"]:hover {
     flex: 1 1 280px;
     max-width: 400px;
 }
- 
+
 
 .show-card {
     flex: 1;
@@ -134,25 +136,22 @@ input[type="submit"]:hover, button[type="submit"]:hover {
     background-color: var(--surface);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
- 
+
 .show-card h2 {
     margin-top: 0;
 }
- 
-.show-card img,
-.show-card .no-image {
-    display: block;
-    width: 210px;
-    max-width: 100%;
-    margin: 0 auto 1rem;
-    border-radius: 6px;
+
+.show-card h2 a {
+    color: inherit;
+    text-decoration: none;
 }
- 
-.show-card img {
-    height: auto;
+
+.show-card h2 a:hover {
+    color: var(--lavender);
+    text-decoration: underline;
 }
- 
-.show-card .no-image {
+
+.no-image {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,39 +159,126 @@ input[type="submit"]:hover, button[type="submit"]:hover {
     padding: 1rem;
     background-color: var(--surface-light);
     border: 1px dashed var(--border);
+    border-radius: 6px;
     color: var(--subtext);
     text-align: center;
 }
- 
+
+.show-card img,
+.show-card .no-image {
+    width: 210px;
+    max-width: 100%;
+    margin: 0 auto 1rem;
+    border-radius: 6px;
+}
+
+.show-card img {
+    display: block;
+    height: auto;
+}
+
 .show-card p {
     margin: 0.4rem 0;
     color: var(--subtext);
 }
- 
+
 .show-card .cast-list {
     margin: 0 0 0.5rem;
     padding-left: 1.25rem;
     color: var(--subtext);
 }
- 
-.show-card a {
-    align-self: flex-start;
+
+.show-card .more-info {
     margin-top: auto;
     padding-top: 0.75rem;
+}
+
+.show-card a {
     color: var(--lavender);
     font-weight: bold;
 }
- 
+
 .show-card a:hover {
     color: var(--peach);
 }
- 
+
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: var(--lavender);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--peach);
+    text-decoration: underline;
+}
+
+.show-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--surface);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.show-detail img,
+.show-detail .no-image {
+    flex: 0 0 280px;
+    width: 280px;
+    max-width: 100%;
+    height: auto;
+    align-self: flex-start;
+    border-radius: 6px;
+}
+
+.show-detail-info {
+    flex: 1 1 320px;
+    min-width: 0;
+}
+
+.show-detail-info h2 {
+    margin-top: 0;
+}
+
+.show-detail-info p {
+    margin: 0.4rem 0;
+    color: var(--subtext);
+}
+
+.show-detail-info .summary {
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.show-detail-info .cast-list {
+    columns: 2 220px;
+    column-gap: 2rem;
+    margin: 0 0 0.5rem;
+    padding-left: 1.25rem;
+    color: var(--subtext);
+}
+
+.show-detail-info a {
+    color: var(--lavender);
+    font-weight: bold;
+}
+
+.show-detail-info a:hover {
+    color: var(--peach);
+}
+
 .status-message {
     padding: 2rem 1rem;
     color: var(--subtext);
     text-align: center;
 }
- 
+
 footer {
     margin-top: 2rem;
     padding: 1rem;
@@ -201,25 +287,35 @@ footer {
     font-size: 0.9rem;
     text-align: center;
 }
- 
+
 footer a {
     color: var(--lavender);
 }
- 
+
 footer a:hover {
     color: var(--peach);
 }
- 
+
 @media (max-width: 600px) {
     body {
         padding: 1rem;
     }
- 
+
     form {
         flex-direction: column;
     }
- 
-    input[type="submit"], button[type="submit"] {
+
+    input[type="submit"],
+    button[type="submit"] {
         width: 100%;
+    }
+
+    .show-detail {
+        padding: 1rem;
+    }
+
+    .show-detail img,
+    .show-detail .no-image {
+        margin: 0 auto;
     }
 }

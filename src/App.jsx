@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route, Link } from 'react-router-dom'
 import { fetchJson } from './utils'
 import ShowList from './ShowList'
 import SearchForm from './SearchForm'
+import ShowDetail from './ShowDetail'
 import Footer from './Footer'
 
 function App() {
   const [query, setQuery] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("Pokemon");
   const [shows, setShows] = useState([]);
   const [status, setStatus] = useState("loading");
   const [formError, setFormError] = useState("");
@@ -71,8 +73,26 @@ function App() {
       <header>
         <h1>TV Shows</h1>
       </header>
-      <SearchForm onSearch={handleSubmit} query={query} onQueryChange={setQuery} formError={formError} />
-      <main>{content}</main>
+      <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <SearchForm onSearch={handleSubmit} query={query} onQueryChange={setQuery} formError={formError} />
+                {content}
+              </>
+            }
+          />
+          <Route path="/shows/:id" element={<ShowDetail />} />
+          <Route
+            path="*"
+            element={
+              <p className="status-message">
+                Page not found. <Link to="/">Back to the gallery</Link>
+              </p>
+            }
+          />
+        </Routes>
       <Footer />
     </>
   )
